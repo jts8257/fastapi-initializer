@@ -74,14 +74,14 @@ const PackageSearch: React.FC<PackageSearchProps> = ({ onAddPackage }) => {
       {error && <p className="text-red-500 mb-2">{error}</p>}
       {searchResults && (
         <div className="border border-gray-300 rounded-md p-4">
-          <h3 className="text-xl font-semibold mb-2">{searchResults.name}</h3>
+          <h3 className="text-black text-xl font-semibold mb-2">{searchResults.name}</h3>
           <div className="mb-4">
             <label className="block mb-1">
               <span className="text-black">Select Version:</span>
               <select
                 value={selectedVersion}
                 onChange={(e) => setSelectedVersion(e.target.value)}
-                className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+                className="text-black w-full mt-1 p-2 border border-gray-300 rounded-md"
               >
                 {searchResults.availableVersions.map((version, index) => (
                   <option key={index} value={version}>
