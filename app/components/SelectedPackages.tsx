@@ -2,7 +2,12 @@
 
 "use client";
 
-import React from 'react';
+import React from "react";
+
+interface AvailableVersion {
+  version:string;
+  upload_time_iso_8601: string;
+}
 
 interface Package {
   name: string;
@@ -34,24 +39,28 @@ const SelectedPackages: React.FC<SelectedPackagesProps> = ({
               className="flex items-center justify-between bg-gray-50 p-3 rounded-md shadow-sm"
             >
               <div className="flex items-center space-x-4">
-                {/* Package Name */}
+                {/* 패키지 이름 */}
                 <span className="font-medium text-gray-800">{pkg.name}</span>
 
-                {/* Available Versions Dropdown */}
-                <select
-                  value={pkg.version}
-                  onChange={(e) => onUpdatePackageVersion(pkg.name, e.target.value)}
-                  className="text-black p-2 border border-gray-300 rounded-md"
-                >
-                  {pkg.availableVersions.map((version, idx) => (
-                    <option key={idx} value={version}>
-                      {version}
-                    </option>
-                  ))}
-                </select>
+                {/* 버전 선택 드롭다운 */}
+                {pkg.availableVersions && pkg.availableVersions.length > 0 ? (
+                  <select
+                    value={pkg.version}
+                    onChange={(e) => onUpdatePackageVersion(pkg.name, e.target.value)}
+                    className="text-gray-800 p-2 border border-gray-300 rounded-md bg-white"
+                  >
+                    {pkg.availableVersions.map((version, idx) => (
+                      <option key={idx} value={version}>
+                        {version}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <span className="text-gray-500">No versions available</span>
+                )}
               </div>
 
-              {/* Remove Button */}
+              {/* Remove 버튼 */}
               <button
                 onClick={() => onRemovePackage(pkg.name)}
                 className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
