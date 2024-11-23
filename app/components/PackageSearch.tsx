@@ -54,13 +54,13 @@ const PackageSearch: React.FC<PackageSearchProps> = ({ onAddPackage }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Search Packages</h2>
+      <h2 className="text-black text-2xl font-bold mb-4">Search Packages</h2>
       <div className="flex items-center mb-4">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md mr-2"
+          className="text-black w-full p-2 border border-gray-300 rounded-md mr-2"
           placeholder="Enter package name"
         />
         <button

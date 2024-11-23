@@ -23,7 +23,7 @@ const SelectedPackages: React.FC<SelectedPackagesProps> = ({
 }) => {
   return (
     <div>
-      <h3 className="text-xl font-semibold mb-4">Selected Packages</h3>
+      <h3 className="text-black text-xl font-semibold mb-4">Selected Packages</h3>
       {packages.length === 0 ? (
         <p className="text-gray-500">No packages selected.</p>
       ) : (
@@ -41,7 +41,7 @@ const SelectedPackages: React.FC<SelectedPackagesProps> = ({
                 <select
                   value={pkg.version}
                   onChange={(e) => onUpdatePackageVersion(pkg.name, e.target.value)}
-                  className="p-2 border border-gray-300 rounded-md"
+                  className="text-black p-2 border border-gray-300 rounded-md"
                 >
                   {pkg.availableVersions.map((version, idx) => (
                     <option key={idx} value={version}>

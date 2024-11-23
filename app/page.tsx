@@ -139,7 +139,7 @@ export default function HomePage() {
       <div className="flex flex-col lg:flex-row gap-8 p-8 flex-1">
         {/* Left Panel */}
         <div className="lg:w-1/2 bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-bold mb-4">Project Setup</h2>
+          <h2 className="text-black text-2xl font-bold mb-4">Project Setup</h2>
           <label className="block mb-2">
             <span className="text-black">Project Name:</span>
             <input
@@ -164,7 +164,7 @@ export default function HomePage() {
             <select
               value={pythonVersion}
               onChange={(e) => setPythonVersion(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              className="text-black w-full mt-1 p-2 border border-gray-300 rounded-md"
             >
               <option value="3.9">3.9</option>
               <option value="3.10">3.10</option>
