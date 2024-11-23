@@ -1,9 +1,13 @@
+// app/layout.tsx
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from 'next/script';
+import Head from 'next/head'; // Ensure Head is imported if needed
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const DOMAIN = process.env.SITE_URL;
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,8 +21,31 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FastAPI initializer",
+  title: "FastAPI Initializer",
   description: "Make it easy to create FastAPI projects",
+  keywords: ["FastAPI", "Project Generator", "Web Tool", "Python", "Backend Framework"],
+  openGraph: {
+    title: "FastAPI Initializer",
+    description: "Make it easy to create FastAPI projects",
+    url: DOMAIN,
+    siteName: "FastAPI Initializer",
+    images: [
+      {
+        url: `${DOMAIN}/images/fastapi-initializer.webp`,
+        width: 1200,
+        height: 630,
+        alt: "FastAPI Initializer OG Image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FastAPI Initializer",
+    description: "Make it easy to create FastAPI projects",
+    images: [`${DOMAIN}/images/fastapi-initializer.webp`], // Optional separate image for Twitter
+  },
 };
 
 export default function RootLayout({
@@ -48,7 +75,7 @@ export default function RootLayout({
             }}
           />
         )}
-        {/* Other head elements like meta tags, links, etc. */}
+        {/* Structured Data, Additional Meta Tags, etc. */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -73,6 +100,7 @@ export default function RootLayout({
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-800 transition-colors duration-200 flex items-center"
           >
+            {/* GitHub SVG Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 mr-2"
@@ -87,6 +115,7 @@ export default function RootLayout({
             href="mailto:k.jts8257@example.com"
             className="text-blue-600 hover:text-blue-800 transition-colors duration-200 flex items-center"
           >
+            {/* Email SVG Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 mr-2"
