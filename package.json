@@ -10,6 +10,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@next/third-parties": "^15.0.3",
     "@tailwindcss/typography": "^0.5.15",
     "clsx": "^2.1.1",
     "jszip": "^3.10.1",

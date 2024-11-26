@@ -3,10 +3,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Script from 'next/script';
-import Head from 'next/head'; // Ensure Head is imported if needed
+import { GoogleAnalytics } from '@next/third-parties/google'
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const DOMAIN = process.env.SITE_URL;
 
 const geistSans = localFont({
@@ -56,41 +54,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager */}
-        {GTM_ID && (
-          <Script
-            id="gtm-script"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){
-                w[l]=w[l]||[];
-                w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),
-                    dl=l!='dataLayer'?'&l='+l:'';
-                j.async=true;
-                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');`,
-            }}
-          />
-        )}
-        {/* Structured Data, Additional Meta Tags, etc. */}
+       <GoogleAnalytics gaId="G-B0TD2RCPEN"/>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Google Tag Manager (noscript) */}
-        {GTM_ID && (
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
-        )}
         {children}
         {/* Footer */}
         <footer className="bg-white shadow-md p-4 flex justify-center space-x-6">
