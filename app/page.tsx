@@ -146,7 +146,7 @@ export default function HomePage() {
               type="text"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              className="text-black w-full mt-1 p-2 border border-gray-300 rounded-md"
               placeholder="Enter project name"
             />
           </label>
