@@ -22,32 +22,39 @@ const PackageSearch: React.FC<PackageSearchProps> = ({ onAddPackage }) => {
 
   const sortAvailableVersions = (releases: PackageDetailData["releases"]): AvailableVersion[] => {
     return Object.keys(releases)
+      .filter((version) => Array.isArray(releases[version]) && releases[version].length > 0) // Ensure releases[version] is valid
       .map((version) => {
         const uploads = releases[version];
         const latestUpload = uploads.reduce((latest, current) => {
-          return new Date(current.upload_time_iso_8601) > new Date(latest.upload_time_iso_8601) ? current : latest;
+          return new Date(current.upload_time_iso_8601 || 0) > new Date(latest.upload_time_iso_8601 || 0)
+            ? current
+            : latest;
         }, uploads[0]);
         return {
           version: version,
-          upload_time_iso_8601: latestUpload.upload_time_iso_8601,
+          upload_time_iso_8601: latestUpload.upload_time_iso_8601 || "Unknown",
         };
       })
       .sort((a, b) => new Date(b.upload_time_iso_8601).getTime() - new Date(a.upload_time_iso_8601).getTime());
   };
+  
 
   const sortVersionsByUploadTime = (releases: PackageDetailData["releases"]): string[] => {
     return Object.keys(releases)
+      .filter((version) => Array.isArray(releases[version]) && releases[version].length > 0) // Ensure releases[version] is valid
       .map((version) => {
-        // Find the latest upload time for each version
         const uploads = releases[version];
         const latestUpload = uploads.reduce((latest, current) => {
-          return new Date(current.upload_time_iso_8601) > new Date(latest.upload_time_iso_8601) ? current : latest;
+          return new Date(current.upload_time_iso_8601 || 0) > new Date(latest.upload_time_iso_8601 || 0)
+            ? current
+            : latest;
         }, uploads[0]);
-        return { version, uploadTime: new Date(latestUpload.upload_time_iso_8601) };
+        return { version, uploadTime: new Date(latestUpload.upload_time_iso_8601 || 0) };
       })
       .sort((a, b) => b.uploadTime.getTime() - a.uploadTime.getTime()) // Sort descending
       .map((item) => item.version);
   };
+  
 
   // Function to search packages from PyPI
   const searchPackages = async () => {
@@ -60,15 +67,14 @@ const PackageSearch: React.FC<PackageSearchProps> = ({ onAddPackage }) => {
     setIsDescriptionExpanded(false); // Reset description state on new search
     try {
       const pkgData = await fetchPackageDetailData(searchQuery);
-      if (pkgData) {
+      if (pkgData && pkgData.releases && Object.keys(pkgData.releases).length > 0) {
         setSearchResults(pkgData);
-        // Set the latest version as default (Assuming the first in the sorted array)
         const sortedVersions = sortVersionsByUploadTime(pkgData.releases);
-        const latestVersion = sortedVersions[0];
+        const latestVersion = sortedVersions[0] || ""; // Default to empty string if no versions found
         setSelectedVersion(latestVersion);
       } else {
         setSearchResults(null);
-        setError("Package not found.");
+        setError("Package not found or has no valid releases.");
       }
     } catch (err) {
       console.error("Error fetching package:", err);
@@ -78,6 +84,7 @@ const PackageSearch: React.FC<PackageSearchProps> = ({ onAddPackage }) => {
       setIsLoading(false);
     }
   };
+  
 
   // Handler to add package
   const handleAddPackage = () => {
